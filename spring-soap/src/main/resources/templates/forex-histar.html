@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex – Historikus árak</title>
+</head>
+<body>
+<h1>Forex – Historikus árak</h1>
+
+<form th:action="@{/forex-histar}" method="post">
+    <label>Instrumentum:</label>
+    <select name="instrument">
+        <option th:each="inst : ${instruments}"
+                th:value="${inst}"
+                th:text="${inst}"
+                th:selected="${inst == selectedInstrument}">
+        </option>
+    </select>
+
+    <label>Időbontás (granularity):</label>
+    <select name="granularity">
+        <option th:each="g : ${granularities}"
+                th:value="${g}"
+                th:text="${g}"
+                th:selected="${g == selectedGranularity}">
+        </option>
+    </select>
+
+    <button type="submit">Lekérdezés</button>
+</form>
+
+<div th:if="${candles != null and !#lists.isEmpty(candles)}">
+    <h2>Eredmény – utolsó 10 gyertya</h2>
+    <table border="1">
+        <tr>
+            <th>Idő</th>
+            <th>Open</th>
+            <th>High</th>
+            <th>Low</th>
+            <th>Close</th>
+        </tr>
+        <tr th:each="c : ${candles}">
+            <td th:text="${c.time}"></td>
+            <td th:text="${c.open}"></td>
+            <td th:text="${c.high}"></td>
+            <td th:text="${c.low}"></td>
+            <td th:text="${c.close}"></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${candles != null and #lists.isEmpty(candles)}">
+    <p>Nincs megjeleníthető adat (lehet, hogy rossz instrumentum / granularity / token).</p>
+</div>
+
+<a th:href="@{/}">Vissza a főoldalra</a>
+
+</body>
+</html>

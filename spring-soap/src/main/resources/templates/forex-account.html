@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex – Account info</title>
+</head>
+<body>
+<h1>Forex – Account információk</h1>
+
+<table border="1" th:if="${account != null}">
+    <tr>
+        <th>Account ID</th>
+        <td th:text="${account.id}"></td>
+    </tr>
+    <tr>
+        <th>Valuta</th>
+        <td th:text="${account.currency}"></td>
+    </tr>
+    <tr>
+        <th>Balance</th>
+        <td th:text="${account.balance}"></td>
+    </tr>
+    <tr>
+        <th>Unrealized P/L</th>
+        <td th:text="${account.unrealizedPL}"></td>
+    </tr>
+    <tr>
+        <th>Realized P/L</th>
+        <td th:text="${account.realizedPL}"></td>
+    </tr>
+</table>
+
+<a th:href="@{/}">Vissza a főoldalra</a>
+
+</body>
+</html>

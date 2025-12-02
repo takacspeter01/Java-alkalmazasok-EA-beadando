@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex – Nyitott pozíciók</title>
+</head>
+<body>
+<h1>Forex – Nyitott pozíciók</h1>
+
+<div th:if="${positions != null and !#lists.isEmpty(positions)}">
+    <table border="1">
+        <tr>
+            <th>Instrumentum</th>
+            <th>Long units</th>
+            <th>Long átlagár</th>
+            <th>Short units</th>
+            <th>Short átlagár</th>
+        </tr>
+        <tr th:each="p : ${positions}">
+            <td th:text="${p.instrument}"></td>
+            <td th:text="${p.longUnits}"></td>
+            <td th:text="${p.longAvgPrice}"></td>
+            <td th:text="${p.shortUnits}"></td>
+            <td th:text="${p.shortAvgPrice}"></td>
+        </tr>
+    </table>
+</div>
+
+<div th:if="${positions != null and #lists.isEmpty(positions)}">
+    <p>Jelenleg nincsenek nyitott pozíciók ezen a számlán.</p>
+</div>
+
+<a th:href="@{/}">Vissza a főoldalra</a>
+
+</body>
+</html>

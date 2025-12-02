@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex – Aktuális ár</title>
+</head>
+<body>
+<h1>Forex – Aktuális ár</h1>
+
+<form th:action="@{/forex-aktar}" method="post">
+    <label>Instrumentum:</label>
+    <select name="instrument">
+        <option th:each="inst : ${instruments}"
+                th:value="${inst}"
+                th:text="${inst}"
+                th:selected="${inst == selectedInstrument}">
+        </option>
+    </select>
+
+    <button type="submit">Lekérdezés</button>
+</form>
+
+<div th:if="${price != null}">
+    <h2>Eredmény</h2>
+    <p>
+        Instrumentum:
+        <span th:text="${price.instrument}"></span>
+    </p>
+    <p>
+        Bid:
+        <span th:text="${price.bid}"></span>
+    </p>
+    <p>
+        Ask:
+        <span th:text="${price.ask}"></span>
+    </p>
+    <p>
+        Idő:
+        <span th:text="${price.time}"></span>
+    </p>
+</div>
+
+<a th:href="@{/}">Vissza a főoldalra</a>
+
+</body>
+</html>

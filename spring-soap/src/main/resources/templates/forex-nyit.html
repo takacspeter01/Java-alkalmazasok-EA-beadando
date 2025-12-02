@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Forex – Pozíció nyitás</title>
+</head>
+<body>
+<h1>Forex – Pozíció nyitás (MARKET)</h1>
+
+<form th:action="@{/forex-nyit}" method="post">
+    <label>Instrumentum:</label>
+    <select name="instrument">
+        <option th:each="inst : ${instruments}"
+                th:value="${inst}"
+                th:text="${inst}"
+                th:selected="${inst == selectedInstrument}">
+        </option>
+    </select>
+
+    <label>Units:</label>
+    <input type="number" name="units"
+           th:value="${enteredUnits}">
+
+    <p><small>Pozitív: long, negatív: short (pl. 1000 vagy -1000).</small></p>
+
+    <button type="submit">Pozíció nyitása</button>
+</form>
+
+<div th:if="${orderResult != null}">
+    <h2>Eredmény</h2>
+
+    <p th:if="${orderResult.success}" style="color: green;"
+       th:text="${orderResult.message}"></p>
+    <p th:if="${!orderResult.success}" style="color: red;"
+       th:text="${orderResult.message}"></p>
+
+    <table th:if="${orderResult.success}" border="1">
+        <tr>
+            <th>Order ID</th>
+            <td th:text="${orderResult.orderId}"></td>
+        </tr>
+        <tr>
+            <th>Instrumentum</th>
+            <td th:text="${orderResult.instrument}"></td>
+        </tr>
+        <tr>
+            <th>Units</th>
+            <td th:text="${orderResult.units}"></td>
+        </tr>
+        <tr>
+            <th>Ár</th>
+            <td th:text="${orderResult.price}"></td>
+        </tr>
+        <tr>
+            <th>Idő</th>
+            <td th:text="${orderResult.time}"></td>
+        </tr>
+    </table>
+</div>
+
+<a th:href="@{/}">Vissza a főoldalra</a>
+
+</body>
+</html>
+

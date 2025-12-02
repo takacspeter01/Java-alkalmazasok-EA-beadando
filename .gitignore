@@ -1,0 +1,17 @@
+# Maven build mappa
+/target/
+
+# IDE fájlok
+.idea/
+*.iml
+.vscode/
+
+# OS szemét
+.DS_Store
+Thumbs.db
+
+# Logok
+*.log
+
+# Lokális konfiguráció (NE kerüljön GitHubra)
+application.properties
